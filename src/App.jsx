@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
 import Filters from './components/Filters';
-import './App.css';
-
+import './index.css';
 const App = () => {
   const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem('tasks');
@@ -28,6 +27,11 @@ const App = () => {
     setTasks(tasks.map(task => task.id === id ? { ...task, completed: !task.completed } : task));
   };
   // next filter task 
+  const filteredTasks = tasks.filter(task => {
+    if (filter === 'completed') return task.completed;
+    if (filter === 'active') return !task.completed;
+    return true;
+  });
 
   return (
     <div className="TodoApp">
